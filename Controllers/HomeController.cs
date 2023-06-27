@@ -9,12 +9,14 @@ namespace Hikeyy.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        
 
         FirebaseAuthProvider auth;
         public HomeController(ILogger<HomeController> logger)
         {
             auth = new FirebaseAuthProvider(
                             new FirebaseConfig("AIzaSyC_qh0TxNX0RXDuPfB5tfOO86GnAx3dY6Q"));
+           
         }
 
         public IActionResult Index()
@@ -88,8 +90,20 @@ namespace Hikeyy.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(LoginModel loginModel)
         {
+            // Create a new product
+           /* var product = new Product
+            {
+                Name = "New Product",
+                Price = 9.99
+            };
+
+            string productId = await _productRepository.CreateAsync(product);*/
+
+
+
             try
             {
+                
                 //log in an existing user
                 var fbAuthLink = await auth
                                 .SignInWithEmailAndPasswordAsync(loginModel.Email, loginModel.Password);

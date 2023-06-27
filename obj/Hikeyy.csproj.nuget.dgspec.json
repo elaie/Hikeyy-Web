@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\elaie\\source\\repos\\Hikeyy\\Hikeyy.csproj": {}
+    "C:\\Users\\elaie\\Documents\\Hikeyy Web\\Hikeyy\\Hikeyy.csproj": {}
   },
   "projects": {
-    "C:\\Users\\elaie\\source\\repos\\Hikeyy\\Hikeyy.csproj": {
+    "C:\\Users\\elaie\\Documents\\Hikeyy Web\\Hikeyy\\Hikeyy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\elaie\\source\\repos\\Hikeyy\\Hikeyy.csproj",
+        "projectUniqueName": "C:\\Users\\elaie\\Documents\\Hikeyy Web\\Hikeyy\\Hikeyy.csproj",
         "projectName": "Hikeyy",
-        "projectPath": "C:\\Users\\elaie\\source\\repos\\Hikeyy\\Hikeyy.csproj",
+        "projectPath": "C:\\Users\\elaie\\Documents\\Hikeyy Web\\Hikeyy\\Hikeyy.csproj",
         "packagesPath": "C:\\Users\\elaie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\elaie\\source\\repos\\Hikeyy\\obj\\",
+        "outputPath": "C:\\Users\\elaie\\Documents\\Hikeyy Web\\Hikeyy\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\elaie\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -48,13 +48,25 @@
               "target": "Package",
               "version": "[2.3.0, )"
             },
+            "FirebaseStorage.net": {
+              "target": "Package",
+              "version": "[1.0.3, )"
+            },
+            "Google.Cloud.Firestore": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
             "Microsoft.AspNetCore.Session": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[6.0.13, )"
+              "version": "[6.0.14, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             }
           },
           "imports": [
