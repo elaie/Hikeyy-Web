@@ -1,5 +1,4 @@
-﻿using Firebase.Storage;
-using Hikeyy.Models;
+﻿using Hikeyy.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,32 +32,6 @@ namespace Hikeyy.Controllers
             model.BestMonths = new List<string>();
             return View(model);
         }
-
-        public async Task<IActionResult> UploadImages(List<IFormFile> files)
-        {
-            var firebaseStorage = new FirebaseStorage("<firebase-storage-bucket>");
-            var imageUrls = new List<string>();
-
-            foreach (var file in files)
-            {
-                if (file.Length > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var stream = file.OpenReadStream();
-
-                    var imageUrl = await firebaseStorage
-                        .Child("images")
-                        .Child(fileName)
-                        .PutAsync(stream);
-
-                    imageUrls.Add(imageUrl);
-                }
-            }
-
-            // Process the image URLs or save them in your database
-
-            return View();
-        }
         [HttpPost]
         public async Task<IActionResult> Create(TrailModel trail)
         {
@@ -66,7 +39,9 @@ namespace Hikeyy.Controllers
             if (ModelState.IsValid)
             {
                 List<string> selectedOptions = trail.BestMonths;
-               
+                System.Diagnostics.Debug.WriteLine("MODEL IS VALID");
+                System.Diagnostics.Debug.WriteLine(trail.Name);
+                await _trailRepository.CreateAsync(trail);
                 return RedirectToAction("Index");
             }
             else
