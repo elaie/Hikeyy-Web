@@ -50,12 +50,12 @@ namespace Hikeyy.Controllers
             return View(model);
         }
 
-        private async Task<string> UploadImageToStorage(IFormFile photo, string fileName)
+        private async Task<string> UploadImageToStorage(IFormFile photo, string fileName,string trailName)
         {
             var storage = StorageClient.Create();
             System.Diagnostics.Debug.WriteLine("UploadImageToStorageCalled");
             string bucketName = "hikeyyy.appspot.com";
-            string folderName = "images";
+            string folderName = "Trails/"+trailName;
             var objectName = "";
             string mimeType = photo.ContentType;
             using (var stream = photo.OpenReadStream())
@@ -87,7 +87,7 @@ namespace Hikeyy.Controllers
 
                         // Upload the image to Firebase Storage or any other storage provider
                         // and get the URL of the uploaded image
-                        string imageUrl = await UploadImageToStorage(photo, fileName);
+                        string imageUrl = await UploadImageToStorage(photo, fileName, trail.Name);
 
                         // Add the image URL to the trail model
                         trail.PhotoURLs.Add(imageUrl);
