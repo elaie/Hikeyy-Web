@@ -24,7 +24,7 @@ namespace Hikeyy.Models
         public string Name { get; set; }
 
         [FirestoreProperty]
-        public List<string> PhotoURLs { get; set; }
+        public List<string>? PhotoURLs { get; set; }
 
         [FirestoreProperty]
         public string StartLatitude { get; set; }

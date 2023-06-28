@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="BestMonths" class="control-label"></label>
@@ -46,12 +46,6 @@
                 }
 
             </div>
-         
-            <div class="form-group">
-                <label asp-for="PhotoURLs" class="control-label"></label>
-                <input asp-for="PhotoURLs" class="form-control" />
-                <span asp-validation-for="PhotoURLs" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Budget" class="control-label"></label>
                 <input asp-for="Budget" class="form-control" />
@@ -86,6 +80,9 @@
                 <label asp-for="StartLongitude" class="control-label"></label>
                 <input asp-for="StartLongitude" class="form-control" />
                 <span asp-validation-for="StartLongitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+               <input type="file" name="photos" multiple />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
