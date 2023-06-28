@@ -6,6 +6,8 @@ namespace Hikeyy.Models
     public class TrailModel
     {
         [FirestoreProperty]
+        public string? UID { get; set; }
+        [FirestoreProperty]
         public List<string> BestMonths { get; set; }
 
         [FirestoreProperty]

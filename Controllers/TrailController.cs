@@ -32,8 +32,8 @@ namespace Hikeyy.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<TrailModel> allProducts = await _trailRepository.GetAllAsync();
-            return View(allProducts);
+            List<TrailModel> trails = await _trailRepository.GetAllAsync();
+            return View(trails);
         }
 
         // GET: TrailController/Details/5

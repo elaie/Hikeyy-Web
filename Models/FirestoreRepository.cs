@@ -1,5 +1,6 @@
 ﻿using FirebaseAdmin;
 using Google.Cloud.Firestore;
+using Google.Type;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,8 +19,27 @@ namespace Hikeyy.Models
 
         public async Task<string> CreateAsync(T entity)
         {
-            var docRef = await _db.Collection(_collectionName).AddAsync(entity);
-            return docRef.Id;
+            var trailsCollection = _db.Collection(_collectionName);
+
+            // Create a new document without specifying the document ID
+            var newDocument = trailsCollection.Document();
+
+            await newDocument.SetAsync(entity);
+
+            //var docRef = await _db.Collection(_collectionName).AddAsync(entity);
+
+            var generatedDocumentId = newDocument.Id;
+
+           
+            var updatedData = new Dictionary<string, object>
+            {
+                { "UID", generatedDocumentId }
+               
+            };
+            await newDocument.UpdateAsync(updatedData);
+
+            //System.Diagnostics.Debug.WriteLine("docREF"+docRef.Id);
+            return newDocument.Id;
         }
 
         public async Task<T> GetAsync(string id)
@@ -38,7 +58,10 @@ namespace Hikeyy.Models
             var entities = new List<T>();
             foreach (var document in snapshot.Documents)
             {
+                System.Diagnostics.Debug.WriteLine(document.Id);
                 entities.Add(document.ConvertTo<T>());
+                System.Diagnostics.Debug.WriteLine(entities);
+
             }
             return entities;
         }
