@@ -14,7 +14,7 @@ namespace Hikeyy.Models
         public int Budget { get; set; }
 
         [FirestoreProperty]
-        public string Discription { get; set; }
+        public string Description { get; set; }
 
         [FirestoreProperty]
         public int Duration { get; set; }

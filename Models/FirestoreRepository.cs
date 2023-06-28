@@ -66,10 +66,24 @@ namespace Hikeyy.Models
             return entities;
         }
 
-        public async Task UpdateAsync(string id, T entity)
+        public async Task UpdateAsync(string id, TrailModel entity)
         {
             var docRef = _db.Collection(_collectionName).Document(id);
-            await docRef.SetAsync(entity, SetOptions.MergeAll);
+           
+
+
+            var updatedData = new Dictionary<string, object>
+            {
+                { "Budget", entity.Budget },
+                { "Description", entity.Description },
+                { "Duration", entity.Duration },
+                { "Location", entity.Location },
+                { "Name", entity.Name },
+                { "StartLatitude", entity.StartLatitude },
+                { "StartLongitude", entity.StartLongitude }
+
+            };
+            await docRef.UpdateAsync(updatedData);
         }
 
         public async Task DeleteAsync(string id)

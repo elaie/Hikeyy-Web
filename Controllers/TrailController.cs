@@ -115,24 +115,23 @@ namespace Hikeyy.Controllers
       
 
         // GET: TrailController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
+            System.Diagnostics.Debug.WriteLine("ID HAI HAMRO EDIT KO" + id);
             return View();
         }
 
         // POST: TrailController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(string id, TrailModel trail)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            System.Diagnostics.Debug.WriteLine("ID HAI HAMRO EDIT KO post request ma hai" + id);
+            
+                System.Diagnostics.Debug.WriteLine("MODEL IS VALID INSIDE EDIT NAME: "+trail.Name);
+                await _trailRepository.UpdateAsync(id,trail);
+                return RedirectToAction("Index");
+           
         }
 
         // GET: TrailController/Delete/5
