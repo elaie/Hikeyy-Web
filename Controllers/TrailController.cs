@@ -5,15 +5,24 @@ using System.Security.AccessControl;
 using Google.Cloud.Storage.V1;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Firebase.Auth;
+using Firebase.Storage;
+using System.Web;
+using System.Reflection.PortableExecutable;
+
 namespace Hikeyy.Controllers
 {
     public class TrailController : Controller
     {
-
+        private static string ApiKey = "AIzaSyC_qh0TxNX0RXDuPfB5tfOO86GnAx3dY6Q";
+        private static string Bucket = "hikeyyy.appspot.com";
+        private static string AuthEmail = "admin@gmail.com";
+        private static string AuthPassword = "admin123";
         // GET: TrailController
         private readonly FirestoreRepository<TrailModel> _trailRepository;
         public TrailController()
         {
+
             FirebaseInitializer.Initialize();
             _trailRepository = new FirestoreRepository<TrailModel>("hikeyyy", "testtrail");
             if (FirebaseApp.DefaultInstance == null)
@@ -28,6 +37,39 @@ namespace Hikeyy.Controllers
                     Credential = GoogleCredential.GetApplicationDefault(),
                     ProjectId = projectId
                 });
+            }
+        }
+
+
+        public async Task<string> Upload(FileStream stream, string fileName,string name)
+        {
+            var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
+            var a = await auth.SignInWithEmailAndPasswordAsync(AuthEmail, AuthPassword);
+
+            var cancellation = new CancellationTokenSource();
+
+            var task = new FirebaseStorage(
+                Bucket,
+                new FirebaseStorageOptions
+                {
+                    AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
+                    ThrowOnCancel = true
+                })
+                .Child("Trails")
+                .Child(name)
+                .Child(fileName)
+                .PutAsync(stream, cancellation.Token);
+            string link = await task;
+            System.Diagnostics.Debug.WriteLine("LINKKKKKKKKKKKK" + link);
+            return link;
+            try
+            {
+               
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
         public async Task<IActionResult> Index()
@@ -61,8 +103,7 @@ namespace Hikeyy.Controllers
             using (var stream = photo.OpenReadStream())
             {
                 objectName = $"{folderName}/{fileName}";
-                
-                await storage.UploadObjectAsync(bucketName, objectName, mimeType, stream);
+  
             }
 
             string imageUrl = $"https://storage.googleapis.com/{bucketName}/{objectName}";
@@ -76,6 +117,7 @@ namespace Hikeyy.Controllers
             System.Diagnostics.Debug.WriteLine("CREATE TASK METHOD CALLED");
             if (ModelState.IsValid)
             {
+                FileStream stream;
                 if (photos != null && photos.Count > 0)
                 {
                     trail.PhotoURLs = new List<string>();
@@ -83,13 +125,26 @@ namespace Hikeyy.Controllers
                     foreach (var photo in photos)
                     {
                         // Generate a unique filename for each uploaded image
-                        string fileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string fileName = Path.GetFileName(photo.FileName);
+                        string fileName2 = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
+                        string filePath = Path.Combine(System.IO.Path.GetFullPath("C:\\Users\\elaie\\Documents\\Hikeyy Web\\Hikeyy\\"), fileName);
+                        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                        string imagePath = Path.Combine(baseDirectory, "Content/images/", photo.FileName);
+                        System.Diagnostics.Debug.WriteLine("IMG PATH"+ fileName2);
+                        stream = new FileStream(Path.Combine(filePath), FileMode.Open);
+
+                        
+                        //string imageUrl = await UploadImageToStorage(photo, fileName, trail.Name);
+                        
+                        string imageUrl = await Upload(stream, photo.FileName,trail.Name);
+
+                        System.Diagnostics.Debug.WriteLine("IMAGE URL IN VIEW " + imageUrl);
 
                         // Upload the image to Firebase Storage or any other storage provider
                         // and get the URL of the uploaded image
-                        string imageUrl = await UploadImageToStorage(photo, fileName, trail.Name);
+                        
 
-                        // Add the image URL to the trail model
+                        //// Add the image URL to the trail model
                         trail.PhotoURLs.Add(imageUrl);
                     }
                 }
