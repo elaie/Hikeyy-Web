@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 <head>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-lDVq4FzNpeElgKGW-F4Im91M0dQc--w&libraries=places"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-lDVq4FzNpeElgKGW-F4Im91M0dQc--w&callback=initMap"></script>
 </head>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
@@ -21,17 +21,30 @@
             zoom: 10
         });
 
-        // Fetch user location data from Firestore and display markers on the map
-        fetch('/Home/GetLocations')
-            .then(response => response.json())
-            .then(locations => {
-                locations.forEach(location => {
-                    var marker = new google.maps.Marker({
-                        position: { lat: location.latitude, lng: location.longitude },
-                        map: map
+        var markers = []; // Array to store the markers
+
+        function updateLocations() {
+            fetch('/Home/GetLocations')
+                .then(response => response.json())
+                .then(locations => {
+                    // Remove existing markers from the map
+                    markers.forEach(marker => marker.setMap(null));
+                    markers = [];
+
+                    // Add markers for each location
+                    locations.forEach(location => {
+                        var marker = new google.maps.Marker({
+                            position: { lat: location.latitude, lng: location.longitude },
+                            map: map
+                        });
+                        markers.push(marker);
                     });
                 });
-            });
+        }
+
+        // Update user locations initially and every 5 seconds
+        updateLocations();
+        setInterval(updateLocations, 5000);
     }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-lDVq4FzNpeElgKGW-F4Im91M0dQc--w&callback=initMap"></script>

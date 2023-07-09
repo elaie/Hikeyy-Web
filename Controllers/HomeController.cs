@@ -10,7 +10,7 @@ namespace Hikeyy.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly FirestoreService _firestoreService;
+
         private FirestoreDb _db;
         FirebaseAuthProvider auth;
         public HomeController(ILogger<HomeController> logger)
