@@ -23,26 +23,39 @@ namespace Hikeyy.Controllers
         }
         public async Task<IActionResult> Index(string id)
         {
-            //CollectionReference childCollectionRef = _db.Collection("Trails")
-            //    .Document(id)
-            //    .Collection("Cordinates");
-  
-            // var snapshot = await childCollectionRef.GetSnapshotAsync();
+            string parentCollection = "Trails";
+            string parentDocumentId = id;
+            // Specify the new collection name
+            string newCollectionName = "Cordinates";
 
-            ////var entities = new List<T>();
-            //foreach (var document in snapshot.Documents)
-            //{
-            //    System.Diagnostics.Debug.WriteLine("INSIDE DOCUMENTS");
-            //    System.Diagnostics.Debug.WriteLine(document.Id);
-            //    //entities.Add(document.ConvertTo<T>());
-            //    //System.Diagnostics.Debug.WriteLine(entities);
+            DocumentReference parentDocumentRef = _db.Collection(parentCollection).Document(parentDocumentId);
 
-            //}
-   
-            System.Diagnostics.Debug.WriteLine("COORDINATES BHITRA KO ID!! "+ id);
-            return View();
+            CollectionReference newCollectionRef = parentDocumentRef.Collection(newCollectionName);
+
+            QuerySnapshot snapshot = await newCollectionRef.GetSnapshotAsync();
+
+            List<CoordinatesModel> products = new List<CoordinatesModel>();
+
+            foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
+            {
+                // Map Firestore document data to a Product model object
+
+                CoordinatesModel Coordinates = new CoordinatesModel
+                {
+                    Longitude = documentSnapshot.GetValue<string>("Longitude"),
+                    Latitude = documentSnapshot.GetValue<string>("Latitude"),
+                    Name = documentSnapshot.GetValue<string>("Name"),
+                    Position = documentSnapshot.GetValue<int>("pos"),
+                    
+                    // Map more properties as needed
+                };
+
+                products.Add(Coordinates);
+            }
+
+            return View(products);
         }
-
+       
         // GET: CoordinatesController/Details/5
         public ActionResult Details(int id)
         {
