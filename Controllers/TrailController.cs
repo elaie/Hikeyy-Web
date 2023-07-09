@@ -62,15 +62,6 @@ namespace Hikeyy.Controllers
             string link = await task;
             System.Diagnostics.Debug.WriteLine("LINKKKKKKKKKKKK" + link);
             return link;
-            try
-            {
-               
-                
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
         }
         public async Task<IActionResult> Index()
         {
@@ -79,9 +70,10 @@ namespace Hikeyy.Controllers
         }
 
         // GET: TrailController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(string id)
         {
-            return View();
+            TrailModel model = await _trailRepository.GetAsync(id);
+            return View(model);
         }
 
         // GET: TrailController/Create
@@ -195,6 +187,7 @@ namespace Hikeyy.Controllers
         // GET: TrailController/Delete/5
         public ActionResult Delete(int id)
         {
+
             return View();
         }
 

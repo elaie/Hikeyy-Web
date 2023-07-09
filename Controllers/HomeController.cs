@@ -15,6 +15,8 @@ namespace Hikeyy.Controllers
         FirebaseAuthProvider auth;
         public HomeController(ILogger<HomeController> logger)
         {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            System.Diagnostics.Debug.WriteLine(currentDirectory);
             auth = new FirebaseAuthProvider(
                             new FirebaseConfig("AIzaSyC_qh0TxNX0RXDuPfB5tfOO86GnAx3dY6Q"));
             System.Diagnostics.Debug.WriteLine("COORDINATES KO CONSTRUCTOR CALLED HAI");
@@ -40,12 +42,10 @@ namespace Hikeyy.Controllers
             {
                 var childQuery = parentDocument.Reference.Collection(childCollectionName);
                 var childSnapshot = await childQuery.GetSnapshotAsync();
-                System.Diagnostics.Debug.WriteLine("INSIDE PARENT");
                 foreach (var childDocument in childSnapshot.Documents)
                 {
                     Dictionary<string, object> locationData = childDocument.ToDictionary();
                     locations.Add(locationData);
-                    System.Diagnostics.Debug.WriteLine("INSIDE CHILD" + locationData["latitude"]);
                 }
             }
             return Json(locations);
