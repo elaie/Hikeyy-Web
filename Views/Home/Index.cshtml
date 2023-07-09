@@ -1,13 +1,37 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<head>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-lDVq4FzNpeElgKGW-F4Im91M0dQc--w&libraries=places"></script>
+</head>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 <div class="text-center">
     <h1 class="display-4">Welcome you have succesfully signed in</h1>
-
+    <div id="map" style="height: 400px;"></div>
     <a asp-action="LogOut">Sign Out</a>
 </div>
+<script>
+    function initMap() {
+        // Initialize the map
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 0, lng: 0 },
+            zoom: 10
+        });
+
+        // Fetch user location data from Firestore and display markers on the map
+        fetch('/Home/GetLocations')
+            .then(response => response.json())
+            .then(locations => {
+                locations.forEach(location => {
+                    var marker = new google.maps.Marker({
+                        position: { lat: location.latitude, lng: location.longitude },
+                        map: map
+                    });
+                });
+            });
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-lDVq4FzNpeElgKGW-F4Im91M0dQc--w&callback=initMap"></script>
