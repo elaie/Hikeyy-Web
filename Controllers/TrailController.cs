@@ -185,25 +185,22 @@ namespace Hikeyy.Controllers
         }
 
         // GET: TrailController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
-
-            return View();
+            TrailModel model = await _trailRepository.GetAsync(id);
+            return View(model);
         }
 
         // POST: TrailController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(string id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            System.Diagnostics.Debug.WriteLine("UID TO BE DELETED" + id);
+            await _trailRepository.DeleteAsync(id);
+
+            return RedirectToAction("Index");
+
         }
     }
 }
