@@ -119,7 +119,7 @@ namespace Hikeyy.Controllers
                         // Generate a unique filename for each uploaded image
                         string fileName = Path.GetFileName(photo.FileName);
                         string fileName2 = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
-                        string filePath = Path.Combine(System.IO.Path.GetFullPath("C:\\Users\\Sanskar\\Documents\\hikeyy-web"), fileName);
+                        string filePath = Path.Combine(System.IO.Path.GetFullPath("C:\\Users\\elaie\\Documents\\Hikeyy Web\\Hikeyy"), fileName);
                         string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                         string imagePath = Path.Combine(baseDirectory, "Content/images/", photo.FileName);
                         System.Diagnostics.Debug.WriteLine("IMG PATH"+ fileName2);

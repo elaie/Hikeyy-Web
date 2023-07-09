@@ -6,9 +6,7 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -48,6 +46,7 @@
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
-}
+        }
+        <a href="@Url.Action("Create", "Coordinates",new { id=@ViewData["UID"] })" class="btn btn-secondary">Go to Another Page</a>
     </tbody>
 </table>

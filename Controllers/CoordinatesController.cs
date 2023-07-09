@@ -103,7 +103,7 @@ namespace Hikeyy.Controllers
 
                 await newCollectionRef.AddAsync(data);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = myString });
             }
             catch
             {
