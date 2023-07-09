@@ -29,16 +29,25 @@ namespace Hikeyy.Controllers
         [HttpGet]
         public async Task<JsonResult> GetLocations()
         {
-            CollectionReference locationsRef = _db.Collection("testusers");
-            QuerySnapshot snapshot = await locationsRef.GetSnapshotAsync();
+            var parentCollectionName = "Groups";
+            var childCollectionName = "Locations";
 
+            var parentQuery = _db.Collection(parentCollectionName);
+            var parentSnapshot = await parentQuery.GetSnapshotAsync();
             List<Dictionary<string, object>> locations = new List<Dictionary<string, object>>();
-            foreach (DocumentSnapshot document in snapshot.Documents)
+            
+            foreach (var parentDocument in parentSnapshot.Documents)
             {
-                Dictionary<string, object> locationData = document.ToDictionary();
-                locations.Add(locationData);
+                var childQuery = parentDocument.Reference.Collection(childCollectionName);
+                var childSnapshot = await childQuery.GetSnapshotAsync();
+                System.Diagnostics.Debug.WriteLine("INSIDE PARENT");
+                foreach (var childDocument in childSnapshot.Documents)
+                {
+                    Dictionary<string, object> locationData = childDocument.ToDictionary();
+                    locations.Add(locationData);
+                    System.Diagnostics.Debug.WriteLine("INSIDE CHILD" + locationData["latitude"]);
+                }
             }
-
             return Json(locations);
         }
         public IActionResult Index()
