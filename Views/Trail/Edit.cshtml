@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    TempData["TrailUID"] = Model.UID;
 }
 
 <h1>Edit</h1>
@@ -49,6 +50,9 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+            <div>
+                <a href="@Url.Action("Index", "Coordinates",new { id=Model.UID })" class="btn btn-secondary">Go to Another Page</a>
             </div>
         </form>
     </div>

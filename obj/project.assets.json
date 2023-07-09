@@ -11256,19 +11256,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sanskar\\.nuget\\packages\\": {}
+    "C:\\Users\\elaie\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sanskar\\Documents\\hikeyy-web\\Hikeyy.csproj",
+      "projectUniqueName": "C:\\Users\\elaie\\Documents\\Hikeyy Web\\Hikeyy\\Hikeyy.csproj",
       "projectName": "Hikeyy",
-      "projectPath": "C:\\Users\\Sanskar\\Documents\\hikeyy-web\\Hikeyy.csproj",
-      "packagesPath": "C:\\Users\\Sanskar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Sanskar\\Documents\\hikeyy-web\\obj\\",
+      "projectPath": "C:\\Users\\elaie\\Documents\\Hikeyy Web\\Hikeyy\\Hikeyy.csproj",
+      "packagesPath": "C:\\Users\\elaie\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\elaie\\Documents\\Hikeyy Web\\Hikeyy\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Sanskar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\elaie\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
