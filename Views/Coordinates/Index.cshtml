@@ -43,6 +43,37 @@
         tr:hover {
             background-color: #EDEEE3
         }
+
+        .btn-editt,
+        .btn-detailss,
+        .btn-deletee {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #aabd9d;
+            color: #fff;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 5px;
+            width: 70px;
+        }
+
+            .btn-editt:hover,
+            .btn-detailss:hover,
+            .btn-deletee:hover {
+                background-color: #8a9c7d
+            }
+ .btn-secondary{
+        position: relative;
+        width: 150px;
+        height: 40px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border: 1px solid #aabd9a;
+        background-color: #abbd9a;
+        margin:10px 20px}
 </style>
 </head>
 <table class="table">
@@ -79,12 +110,12 @@
                 @Html.DisplayFor(modelItem => item.Position)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Edit", "Edit",new { @class = "btn-editt" }, new { /* id=item.PrimaryKey */ }) 
+                    @Html.ActionLink("Details", "Details",new { @class = "btn-detailss" }, new { /* id=item.PrimaryKey */ }) 
+                    @Html.ActionLink("Delete", "Delete",new { @class = "btn-deletee" }, new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
         }
-        <a href="@Url.Action("Create", "Coordinates",new { id=@ViewData["UID"] })" class="btn btn-secondary">Go to Another Page</a>
+        <a href="@Url.Action("Create", "Coordinates",new { id=@ViewData["UID"] })" class="btn btn-secondary">Edit Co-ordinates</a>
     </tbody>
 </table>
