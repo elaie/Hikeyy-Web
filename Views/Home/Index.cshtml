@@ -34,8 +34,21 @@
         <h1 class="display-4">Let's track hikers</h1>
     </div>
     <div class="text-center">
-        <div id="map" style="height: 400px;"></div>
-        <h5 asp-action="LogOut">Sign Out</h5>
+        <div id="map" style="height: 800px;"></div>
+        <a asp-action="LogOut" style="  display: grid;
+            place-items: center;
+            background: #8a9c7d;
+            padding: 0.4em;
+            border-radius: 10px;
+            box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15), -6px -6px 10px -1px rgba(255,255,255,0.7);
+            border: 1px solid rgba(0,0,0,0);
+            cursor: pointer;
+            transition: transform 0.5s;
+            width:120px;
+            margin-top:10px;
+            margin-left:900px;color:#fff">
+            Sign Out
+        </a>
     </div>
     <script>
         function initMap() {
