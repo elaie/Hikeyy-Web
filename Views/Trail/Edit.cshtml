@@ -3,24 +3,55 @@
 @{
     ViewData["Title"] = "Edit";
     TempData["TrailUID"] = Model.UID;
-}
+}<head>
+<style>
+    .form-control {
+        background: rgba(253, 253, 253, 0);
+        /*outline: none;*/
+        border: 0.5px solid black;
+        border-radius: 0.5rem;
+        padding: 10px;
+        margin: 10px auto;
+        width: 80%;
+        display: block;
+        color: #425981;
+        font-weight: 500;
+        font-size: 1em;
+            margin-left: -0px;
+        }
 
-<h1>Edit</h1>
+    .control-label {
+        color: black;
+        font-size: 19px;
+    }
 
-<h4>TrailModel</h4>
+    h1 {
+        color: #8a9c7d
+    }
+</style>
+</head>
+
+<h1>Make changes in Trail Details</h1>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" 
+          style="background-color: #EDEEE3;
+          border-radius: 20px;
+          box-sizing: border-box;
+          height: 100%;
+          padding: 20px;
+          width: 900px;">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Budget" class="control-label"></label>
+                <label asp-for="Budget" class="control-label">@Html.DisplayNameFor(model => model.Budget)</label>
                 <input asp-for="Budget" class="form-control" />
                 <span asp-validation-for="Budget" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <input asp-for="Description" class="form-control" style="height:100px;" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,19 +80,32 @@
                 <span asp-validation-for="StartLongitude" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary"
+                  style="padding-left:25px;
+                  width: 100px;
+                  height: 40px;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  border: 1px solid grey;
+                  border-radius:6px;
+                  background-color: #abbd9a;
+                  color:#fff;margin-top:20px; margin-left:18cm" />
             </div>
             <div>
-                <a href="@Url.Action("Index", "Coordinates",new { id=Model.UID })" class="btn btn-secondary">Go to Another Page</a>
+                <a href="@Url.Action("Index", "Coordinates",new { id=Model.UID })" class="btn btn-secondary" style="margin-left:18cm;margin-top:10px; ">View Co-ordinates <ion-icon name="globe-outline"></ion-icon></a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div style="margin:15px;">
+    <a asp-action="Index" style="color:#8a9c7d;"><ion-icon name="arrow-back-outline" style="margin-right:5px;"></ion-icon>Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

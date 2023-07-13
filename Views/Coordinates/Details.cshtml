@@ -3,12 +3,24 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    .row{
+        background-color: #EDEEE3;
+        border-radius: 20px;
+        box-sizing: border-box;
+        height: 100%;
+        padding: 20px;
+        width: 900px;
+    }
+    .col-sm-2{
+        color: #617158
+    }
+</style>
 
 <h1>Details</h1>
 
 <div>
-    <h4>CoordinatesModel</h4>
-    <hr />
+    <hr style="width:900px;margin-left:-10px;" />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Latitude)

@@ -756,3 +756,4 @@ C:\Users\Sanskar\Documents\hikeyy-web\obj\Debug\net6.0\Hikeyy.genruntimeconfig.c
 C:\Users\Sanskar\Documents\hikeyy-web\obj\Debug\net6.0\ref\Hikeyy.dll
 C:\Users\elaie\Documents\Hikeyy Web\Hikeyy\bin\Debug\net6.0\package-lock.json
 C:\Users\elaie\Documents\Hikeyy Web\Hikeyy\bin\Debug\net6.0\package.json
+C:\Users\elaie\Documents\Hikeyy Web\Hikeyy\obj\Debug\net6.0\scopedcss\Views\Home\SignIn.cshtml.rz.scp.css

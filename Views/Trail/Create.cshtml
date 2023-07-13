@@ -2,20 +2,112 @@
 
 @{
     ViewData["Title"] = "Create";
-}
+}<head>
+    <style>
+        .form-control{
+            background: rgba(253, 253, 253, 0);
+            /*outline: none;*/
+            border: 0.5px solid black;
+            border-radius: 0.5rem;
+            padding: 10px;
+            margin-left:-100px;
+            margin: 10px;
+            width: 80%;
+            display: block;
+            color: #425981;
+            font-weight: 500;
+            font-size: 1em;
+            
+        }
+        .control-label{
+            color:black;
+            font-size:19px;
+        }
+        h1{
+            color:#8a9c7d
+        }
 
-<h1>Create</h1>
+        .cont {
+            cursor: pointer;
+        }
 
-<h4>TrailModel</h4>
+            .cont input {
+                display: none;
+                width: 10px;
+                margin-left: 10px;
+                margin-top: -10px;
+                height: 10px;
+            }
+
+            .cont svg {
+                overflow: visible;
+            }
+
+        .path {
+            fill: none;
+            stroke: black;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease;
+            stroke-dasharray: 241 9999999;
+            stroke-dashoffset: 0;
+        }
+
+        .cont input:checked ~ svg .path {
+            stroke-dasharray: 70.5096664428711 9999999;
+            stroke-dashoffset: -262.2723388671875;
+        }
+
+        .custom-file-upload{
+            background-color: #abbd9a;
+            padding: 5px 15px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 10px;
+            border: 2px dashed #abbd9a;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+            transition: .4s;
+        }
+
+            .custom-file-upload span:last-child {
+            display: none;
+        }
+
+            .custom-file-upload:hover {
+            transition: .4s;
+                border: 2px dashed #abbd9a;
+                background-color: #fff;
+                color: #abbd9a
+        }
+
+            .custom-file-upload:active {
+            background-color: #87dbd0;
+        }
+
+    </style>
+</head>
+
+
+<h1>Create a new trail</h1>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+        <form asp-action="Create" enctype="multipart/form-data" style="background-color: #EDEEE3;
+  border-radius: 20px;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 20px;
+  width: 900px;">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BestMonths" class="control-label"></label>
-                @{
-                    List<string> staticOptions = new List<string>
+                <label asp-for="BestMonths" class="control-label" ></label>
+                <div class="bstmnth" style="margin-left:20px;">
+                    @{
+                    List<string> staticOptions = new List<string> 
                 {
                 "January",
                 "Feburary",
@@ -38,22 +130,25 @@
                 @foreach (var option in staticOptions)
                 {
                     <div>
-                        <label>
+                        <label class="cont">
                             <input type="checkbox" name="BestMonths" value="@option" @(selectedOptions.Contains(option) ? "checked" : "") />
                             @option
+                                <svg viewBox="0 0 64 64" height="12px" width="12px" >
+                                    <path d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16" pathLength="575.0541381835938" class="path"></path>
+                                </svg>
                         </label>
                     </div>
                 }
-
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Budget" class="control-label"></label>
-                <input asp-for="Budget" class="form-control" />
+                <input asp-for="Budget" class="form-control" style="" />
                 <span asp-validation-for="Budget" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <input asp-for="Description" class="form-control" style="height:100px;" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -81,20 +176,34 @@
                 <input asp-for="StartLongitude" class="form-control" />
                 <span asp-validation-for="StartLongitude" class="text-danger"></span>
             </div>
-            <div class="form-group">
-               <input type="file" name="photos" multiple />
+            <div class="form-group" style="margin-top:35px;">
+                <label for="file-upload" class="custom-file-upload">
+                    Choose File
+                </label>
+                <input id="file-upload" type="file" name="photos" multiple style="display:none;" />
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" style="padding-left:25px;
+            width: 100px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border: 1px solid grey;
+            border-radius:6px;
+            background-color: #abbd9a;color:#fff;margin-top:20px; margin-left:18cm" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div style="margin:15px;">
+    <a asp-action="Index" style="color:#8a9c7d;"><ion-icon name="arrow-back-outline" style="margin-right:5px;"></ion-icon>Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

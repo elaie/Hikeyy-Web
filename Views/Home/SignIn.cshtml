@@ -4,35 +4,149 @@
     ViewData["Title"] = "SignIn";
 }
 
-<h1>SignIn</h1>
+<head>
+    <script src="SignIn.cshtml.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+        const wrapper = document.querySelector('.wrapper');
+        const btnPopup = document.querySelector('.btnlogin-popup');
 
-<h4>LoginModel</h4>
-<hr />
+        btnPopup.addEventListener('click', () => {
+            wrapper.classList.add('active-popup');
+        });
+    </script>
+    <style>
+        header {
+            display: none;
+        }
+
+        headerr {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 99;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #abbd9a
+            ;
+            background-size: cover;
+            background-position: center;
+        }
+
+ 
+
+        .input-box label {
+            position: absolute;
+            left: 5px;
+            transform: translateY(-50%);
+            font-size: 1em;
+            color: #162938;
+            font-weight: 500;
+            pointer-events: none;
+            transition: .5s;
+
+        }
+
+        .input-box input:focus + label,
+        .input-box input:not(:placeholder-shown) + label {
+            opacity: 0;
+        }
+
+           .input-box input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1em;
+            color: #162938;
+            font weight:600;
+            padding: 0 35px 0 18px;
+        }
+       
+        ion-icon {
+            position:absolute;
+            right:8px;
+            font-size: 25px;
+            color: #162938;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+                   }
+
+        .column {
+            flex: 1;
+        
+        }
+      
+
+    </style>
+</head>
+
+<body>
+<headerr>
+    <h2 class="Hikey">Hikeyy</h2>
+    <nav class="navigation">
+        <a href="#">Home</a>
+        <a href="#">Privacy</a>
+        <a href="#">Trial</a>
+        <button class="btnlogin-popup">Login</button>
+    </nav>
+</headerr>
 <div class="row">
-    <div class="col-md-4">
+    <div class="column">
+            <h2 style="color: #162938;margin-top:50px;">Welcome to admin pannel,</h2>
+
+        </div>
+<div class="column">
+<div class="wrapper"><div class="popup">
+    <div class="form-box login">
+        <h2>Login</h2>
         <form asp-action="SignIn">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <div class="input-box">
+                    <ion-icon name="mail-outline"> </ion-icon>
+                    <span asp-validation-for="Email" class="icon"></span>
+                    <label asp-for="Email"></label>
+                   <input asp-for="Email" />
+        </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="input-box">
+                    <span asp-validation-for="Password" class="icon">
+                        </span>
+                  
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <label asp-for="Password"></label>
+                                <input asp-for="Password" type="password" 
+                                />
+                </div>
+            <div class="btn">
+                <input type="submit" value="Log In" class="btn btn-primaryy" />
             </div>
         </form>
+            </div>
     </div>
 </div>
-
+        </div>
+    </div>
 <div>
     <a asp-action="Index">Back to List</a>
-</div>
+    </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    }
+</body>

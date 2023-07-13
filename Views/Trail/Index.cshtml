@@ -2,13 +2,165 @@
 
 @{
     ViewData["Title"] = "Index";
-}
+}<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            background-image: url(C:\Users\Dell\source\repos\Hikeyy-Web\52.png)
+        }
 
-<h1>Index</h1>
+        h1 {
+            color: #8a9c7d
+        }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+        a {
+            color: #8a9c7d;
+            text-decoration: none;
+        }
+
+         a:hover {
+                color:black;
+         }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2c9a5b;
+            color: #000;
+            /*border: 1px solid #AFAFAF*/
+        }
+
+        td {
+            border-bottom: 1px solid #ccc;
+            /*border: 1px solid #AFAFAF;*/
+        }
+            
+        tr:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+
+        tr:hover {
+            background-color: #EDEEE3
+        }
+
+        .button {
+            position: relative;
+            width: 150px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border: 1px solid #aabd9a;
+            background-color: #abbd9a;
+        }
+
+        .button, .button__icon, .button__text {
+            transition: all 0.3s;
+        }
+
+        .button .button__text {
+                transform: translateX(30px);
+                color: #fff;
+                font-weight: 400;
+            }
+
+        .button .button__icon {
+                position: absolute;
+                transform: translateX(109px);
+                height: 100%;
+                width: 39px;
+                background-color: #aabd9d;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+        .button .svg {
+                width: 30px;
+                stroke: #fff;
+            }
+
+        .button:hover {
+                background: #aabd9a;
+            }
+
+        .button:hover .button__text {
+                color: transparent;
+                }
+
+        .button:hover .button__icon {
+                width: 148px;
+                transform: translateX(0);
+                }
+
+        .button:active .button__icon {
+                background-color: #2e8644;
+            }
+
+        .button:active {
+                border: 1px solid #2e8644;
+            }
+        .btn-edit,
+        .btn-details,
+        .btn-delete {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #aabd9d;
+            color: #fff;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 4px;
+            margin:5px;
+            width:70px;
+        }
+
+            .btn-edit:hover,
+            .btn-details:hover,
+            .btn-delete:hover {
+                background-color: #8a9c7d
+            }
+    </style>
+
+          <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+    <h1>Index</h1>
+    <button type="button" class="button">
+        <span class="button__text">Create New</span>
+        <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+    </button>
+   <p>
+        <a asp-action="Create" 
+            style="padding-left:30px;
+            width: 150px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border: 1px solid #aabd9a;
+            border-radius:6px;
+            background-color: #abbd9a;color:#fff;margin-top:20px;">Create New
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></a>
+    </p>
 <table class="table">
     <thead>
         <tr>
@@ -60,12 +212,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.StartLongitude)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.UID }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.UID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.UID })
+            <td style="width:160px;background-color: " >
+                        @Html.ActionLink("Edit", "Edit", new { id=item.UID }, new { @class = "btn-edit" }) <ion-icon name="create-outline"></ion-icon> <br>
+                        @Html.ActionLink("Details", "Details", new { id=item.UID }, new { @class = "btn-details" }) <ion-icon name="chevron-forward-circle-outline"></ion-icon> <br>
+                        @Html.ActionLink("Delete", "Delete", new { id=item.UID },new { @class = "btn-delete" })<ion-icon name="trash-outline"></ion-icon>
             </td>
         </tr>
 }
     </tbody>
 </table>
+</body>
