@@ -46,22 +46,44 @@
             });
 
             var markers = []; // Array to store the markers
+            var circles = []; // Array to store the circles
 
             function updateLocations() {
                 fetch('/Home/GetLocations')
                     .then(response => response.json())
                     .then(locations => {
-                        // Remove existing markers from the map
+                        // Remove existing markers and circles from the map
                         markers.forEach(marker => marker.setMap(null));
+                        circles.forEach(circle => circle.setMap(null));
                         markers = [];
+                        circles = [];
 
-                        // Add markers for each location
+                        // Add markers and circles for each location
                         locations.forEach(location => {
                             var marker = new google.maps.Marker({
                                 position: { lat: location.latitude, lng: location.longitude },
-                                map: map
+                                map: map,
+                                icon: {
+                                    path: google.maps.SymbolPath.CIRCLE,
+                                    scale: 4, // Adjust the size of the dots here
+                                    fillColor: 'blue',
+                                    fillOpacity: 1,
+                                    strokeWeight: 0
+                                }
                             });
                             markers.push(marker);
+
+                            var circle = new google.maps.Circle({
+                                strokeWeight: 0,
+                                fillColor: '#4285F4', // Adjust the color of the ripple effect here
+                                fillOpacity: 0.35,
+                                map: map,
+                                center: { lat: location.latitude, lng: location.longitude },
+                                radius: 100, // Adjust the radius of the ripple effect here
+                                clickable: false,
+                                animation: google.maps.Animation.DROP
+                            });
+                            circles.push(circle);
                         });
                     });
             }
