@@ -2,20 +2,50 @@
 
 @{
     ViewData["Title"] = "Create";
-}
+}<head>
+    <style>
+        .form-control{
+            background: rgba(253, 253, 253, 0);
+            /*outline: none;*/
+            border: 0.5px solid black;
+            border-radius: 0.5rem;
+            padding: 10px;
+            margin: 10px auto;
+            width: 80%;
+            display: block;
+            color: #425981;
+            font-weight: 500;
+            font-size: 1em;
+            
+        }
+        .control-label{
+            color:black;
+            font-size:19px;
+        }
+        h1{
+            color:#8a9c7d
+        }
+    </style>
+</head>
 
-<h1>Create</h1>
 
-<h4>TrailModel</h4>
+<h1>Create a new trail</h1>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+        <form asp-action="Create" enctype="multipart/form-data" style="background-color: #EDEEE3;
+  border-radius: 20px;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 20px;
+  width: 900px;">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BestMonths" class="control-label"></label>
-                @{
-                    List<string> staticOptions = new List<string>
+                <label asp-for="BestMonths" class="control-label" ></label>
+                <div class="bstmnth" style="margin-left:90px;">
+                    @{
+                    List<string> staticOptions = new List<string> 
                 {
                 "January",
                 "Feburary",
@@ -44,11 +74,11 @@
                         </label>
                     </div>
                 }
-
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Budget" class="control-label"></label>
-                <input asp-for="Budget" class="form-control" />
+                <input asp-for="Budget" class="form-control" style="" />
                 <span asp-validation-for="Budget" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -85,7 +115,15 @@
                <input type="file" name="photos" multiple />
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" style="padding-left:25px;
+            width: 100px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border: 1px solid grey;
+            border-radius:6px;
+            background-color: #abbd9a;color:#fff;margin-top:20px; margin-left:18cm" />
             </div>
         </form>
     </div>

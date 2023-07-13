@@ -1,5 +1,4 @@
-/* _content/Hikeyy/Views/Home/SignIn.cshtml.rz.scp.css */
-*[b-g71in2b24r] {
+﻿* {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
@@ -7,13 +6,13 @@
 
 
 
-.Hikey[b-g71in2b24r] {
+.Hikey {
     font-size: 2em;
     color: #162938;
     user-select: none;
 }
 
-.navigation a[b-g71in2b24r] {
+.navigation a {
     position: relative;
     font-size: 1.1em;
     color: #162938;
@@ -22,7 +21,7 @@
     margin-left: 40px;
 }
 
-    .navigation a[b-g71in2b24r]::after {
+    .navigation a::after {
         content: '';
         position: absolute;
         left: 0;
@@ -35,11 +34,11 @@
         transition: transform .5s;
     }
 
-    .navigation a:hover[b-g71in2b24r]::after {
+    .navigation a:hover::after {
         transform: scaleX(1);
     }
 
-.navigation .btnlogin-popup[b-g71in2b24r] {
+.navigation .btnlogin-popup {
     width: 90px;
     height: 30px;
     background: transparent;
@@ -55,12 +54,12 @@
     transition: .5s;
 }
 
-    .navigation .btnlogin-popup:hover[b-g71in2b24r] {
+    .navigation .btnlogin-popup:hover {
         background: #fff;
         color: #162938;
     }
 
-.wrapper[b-g71in2b24r] {
+.wrapper {
     margin-top:20px;
     margin-left:500px;
     width: 320px;
@@ -78,34 +77,34 @@
     overflow: hidden;
     transition: transform .5s,height .2s ease;
 }
-    .wrapper.active-popup[b-g71in2b24r] {
+    .wrapper.active-popup {
         transform: scale(1);
     }
-    .wrapper.active[b-g71in2b24r] {
+    .wrapper.active {
         height: 520px;
     }
-    .wrapper .form-box.login[b-g71in2b24r]{
+    .wrapper .form-box.login{
     transition:transform .18s ease;
     transform: translateX(0);
 }
-wrapper.active .form-box.login[b-g71in2b24r] {
+wrapper.active .form-box.login {
     transition:none;
     transform: translateX(-400px);
 }
     
-    .wrapper .form-box[b-g71in2b24r] {
+    .wrapper .form-box {
         width: 100%;
         padding: 40px;
     }
 
-.form-box h2[b-g71in2b24r] {
+.form-box h2 {
     font-size: 2.5em;
     color: #162938;
     text-align: center;
     margin-bottom:30px;
 }
 
-.input-box[b-g71in2b24r] {
+.input-box {
     position: relative;
     margin-left:10px;
     width: 90%;
@@ -114,7 +113,7 @@ wrapper.active .form-box.login[b-g71in2b24r] {
     margin: 30px 10px;
 }
  
-.btn-primaryy[b-g71in2b24r] {
+.btn-primaryy {
     width: 250px;
     height: 50px;
     background: #162938;
@@ -124,49 +123,4 @@ wrapper.active .form-box.login[b-g71in2b24r] {
     font-size: 1em;
     color: #fff;
     font-weight: 500;
-}
-/* _content/Hikeyy/Views/Shared/_Layout.cshtml.rz.scp.css */
-/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-
-
-a[b-cgeih9wy07] {
-    color: #162938;
-}
-
-.btn-primary[b-cgeih9wy07] {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active[b-cgeih9wy07], .nav-pills .show > .nav-link[b-cgeih9wy07] {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.border-top[b-cgeih9wy07] {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom[b-cgeih9wy07] {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow[b-cgeih9wy07] {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy[b-cgeih9wy07] {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-.footer[b-cgeih9wy07] {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
 }

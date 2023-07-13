@@ -3962,13 +3962,14 @@ textarea.form-control-lg {
 }
 
 .navbar {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: #abbd9a
 }
 .navbar > .container,
 .navbar > .container-fluid,
@@ -3985,8 +3986,8 @@ textarea.form-control-lg {
 .navbar-brand {
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
-  margin-right: 1rem;
-  font-size: 1.25rem;
+ 
+  font-size: 1.4rem;
   text-decoration: none;
   white-space: nowrap;
 }
