@@ -3,12 +3,32 @@
 @{
     ViewData["Title"] = "Delete";
 }
+<style>
+    .row {
+        background-color: #EDEEE3;
+        border-radius: 20px;
+        box-sizing: border-box;
+        height: 100%;
+        padding: 20px;
+        width: 900px;
+    }
 
+    h1 {
+        color: #8a9c7d
+    }
+
+    h3 {
+        color: #8a9c7d
+    }
+
+    .col-sm-2 {
+        color: #617158
+    }
+</style>
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>TrailModel</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -62,9 +82,11 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+       
+        
         <div >
-            <a asp-action="Index" style="color:#8a9c7d;"><ion-icon name="arrow-back-outline" style="margin-right:5px;"></ion-icon>Back to List</a>
+            <a asp-action="Index" style="color:#8a9c7d ; margin:10px;"><ion-icon name="arrow-back-outline" style="margin-right:5px;"></ion-icon>Back to List</a>
         </div>
 
     </form>
