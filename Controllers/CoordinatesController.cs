@@ -1,8 +1,10 @@
 ﻿using Google.Cloud.Firestore;
+using Google.Type;
 using Hikeyy.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Xml.Linq;
 
 namespace Hikeyy.Controllers
 {
@@ -59,9 +61,8 @@ namespace Hikeyy.Controllers
         }
        
         // GET: CoordinatesController/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(string id, string name)
         {
-            System.Diagnostics.Debug.WriteLine("DETAILSSSSS+" + id);
             string parentCollection = "Trails";
             string parentDocumentId = id;
             // Specify the new collection name
@@ -72,8 +73,31 @@ namespace Hikeyy.Controllers
             CollectionReference newCollectionRef = parentDocumentRef.Collection(newCollectionName);
 
             QuerySnapshot snapshot = await newCollectionRef.GetSnapshotAsync();
-            
-            return View(snapshot);
+
+
+            List<CoordinatesModel> products = new List<CoordinatesModel>();
+            ViewData["UID"] = id;
+            System.Diagnostics.Debug.WriteLine(ViewData["UID"] + " " + name);
+            foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
+            {
+                // Map Firestore document data to a Product model object
+                if (name == documentSnapshot.GetValue<string>("Name"))
+                {
+                    CoordinatesModel Coordinates = new CoordinatesModel
+                    {
+                        Longitude = documentSnapshot.GetValue<string>("Longitude"),
+                        Latitude = documentSnapshot.GetValue<string>("Latitude"),
+                        Name = documentSnapshot.GetValue<string>("Name"),
+                        Position = documentSnapshot.GetValue<int>("pos"),
+
+                        // Map more properties as needed
+                    };
+                    return View(Coordinates);
+                }
+
+
+            }
+            return View();
         }
 
         // GET: CoordinatesController/Create
@@ -127,18 +151,79 @@ namespace Hikeyy.Controllers
         }
 
         // GET: CoordinatesController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(string id,string name)
         {
+            string parentCollection = "Trails";
+            string parentDocumentId = id;
+            // Specify the new collection name
+            string newCollectionName = "Cordinates";
+            TempData["Name"]  = Request.Query["name"];
+            TempData["id"] = Request.Query["id"];
+            DocumentReference parentDocumentRef = _db.Collection(parentCollection).Document(parentDocumentId);
+
+            CollectionReference newCollectionRef = parentDocumentRef.Collection(newCollectionName);
+
+            QuerySnapshot snapshot = await newCollectionRef.GetSnapshotAsync();
+
+
+            List<CoordinatesModel> products = new List<CoordinatesModel>();
+            ViewData["UID"] = id;
+            System.Diagnostics.Debug.WriteLine(ViewData["UID"]+" "+ TempData["Name"]);
+            foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
+            {
+                // Map Firestore document data to a Product model object
+                if(name== documentSnapshot.GetValue<string>("Name"))
+                {
+                    CoordinatesModel Coordinates = new CoordinatesModel
+                    {
+                        Longitude = documentSnapshot.GetValue<string>("Longitude"),
+                        Latitude = documentSnapshot.GetValue<string>("Latitude"),
+                        Name = documentSnapshot.GetValue<string>("Name"),
+                        Position = documentSnapshot.GetValue<int>("pos"),
+
+                        // Map more properties as needed
+                    };
+                    return View(Coordinates);
+                }
+ 
+               
+            }
             return View();
         }
 
         // POST: CoordinatesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(string id)
         {
+            string Name = TempData["Name"] as string;
+            string uid = TempData["id"] as string;
+            string parentCollection = "Trails";
+            string parentDocumentId = uid;
+           
+            System.Diagnostics.Debug.WriteLine($"EDIT POST CALLED: {Name}");
+            // Specify the new collection name
+            string newCollectionName = "Cordinates";
+            
             try
             {
+                var trailCollection = _db.Collection(parentCollection);
+
+                var trailDocument = trailCollection.Document(parentDocumentId);
+
+                // Access the child collection "coordinates"
+                var coordinatesCollection = trailDocument.Collection(newCollectionName);
+
+                // Update document data inside the "coordinates" collection
+                //var coordinateDocument = coordinatesCollection.Document(docUID);
+                //await coordinateDocument.UpdateAsync(new Dictionary<string, object>
+                //{
+                //    { "Longitude" , coordinates.Longitude },
+                //    { "Latitude" , coordinates.Longitude },
+                //    { "Name" , coordinates.Longitude },
+                //    { "Position" , coordinates.Longitude },
+
+                //});
                 return RedirectToAction(nameof(Index));
             }
             catch
