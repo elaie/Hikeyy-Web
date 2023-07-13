@@ -3,6 +3,7 @@ using Hikeyy.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Xml.Linq;
 
 namespace Hikeyy.Controllers
 {
@@ -59,9 +60,8 @@ namespace Hikeyy.Controllers
         }
        
         // GET: CoordinatesController/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(string id, string name)
         {
-            System.Diagnostics.Debug.WriteLine("DETAILSSSSS+" + id);
             string parentCollection = "Trails";
             string parentDocumentId = id;
             // Specify the new collection name
@@ -72,8 +72,31 @@ namespace Hikeyy.Controllers
             CollectionReference newCollectionRef = parentDocumentRef.Collection(newCollectionName);
 
             QuerySnapshot snapshot = await newCollectionRef.GetSnapshotAsync();
-            
-            return View(snapshot);
+
+
+            List<CoordinatesModel> products = new List<CoordinatesModel>();
+            ViewData["UID"] = id;
+            System.Diagnostics.Debug.WriteLine(ViewData["UID"] + " " + name);
+            foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
+            {
+                // Map Firestore document data to a Product model object
+                if (name == documentSnapshot.GetValue<string>("Name"))
+                {
+                    CoordinatesModel Coordinates = new CoordinatesModel
+                    {
+                        Longitude = documentSnapshot.GetValue<string>("Longitude"),
+                        Latitude = documentSnapshot.GetValue<string>("Latitude"),
+                        Name = documentSnapshot.GetValue<string>("Name"),
+                        Position = documentSnapshot.GetValue<int>("pos"),
+
+                        // Map more properties as needed
+                    };
+                    return View(Coordinates);
+                }
+
+
+            }
+            return View();
         }
 
         // GET: CoordinatesController/Create
