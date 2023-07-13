@@ -42,7 +42,7 @@
                 @Html.DisplayFor(modelItem => item.Position)
             </td>
             <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=@ViewData["UID"]  }) |
+                    @Html.ActionLink("Edit", "Edit", new { id=@ViewData["UID"],name=item.Name  }) |
                     @Html.ActionLink("Details", "Details", new { id=@ViewData["UID"] }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>

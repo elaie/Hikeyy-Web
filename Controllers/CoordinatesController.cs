@@ -127,8 +127,42 @@ namespace Hikeyy.Controllers
         }
 
         // GET: CoordinatesController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(string id,string name)
         {
+            string parentCollection = "Trails";
+            string parentDocumentId = id;
+            // Specify the new collection name
+            string newCollectionName = "Cordinates";
+
+            DocumentReference parentDocumentRef = _db.Collection(parentCollection).Document(parentDocumentId);
+
+            CollectionReference newCollectionRef = parentDocumentRef.Collection(newCollectionName);
+
+            QuerySnapshot snapshot = await newCollectionRef.GetSnapshotAsync();
+
+
+            List<CoordinatesModel> products = new List<CoordinatesModel>();
+            ViewData["UID"] = id;
+            System.Diagnostics.Debug.WriteLine(ViewData["UID"]+" "+name);
+            foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
+            {
+                // Map Firestore document data to a Product model object
+                if(name== documentSnapshot.GetValue<string>("Name"))
+                {
+                    CoordinatesModel Coordinates = new CoordinatesModel
+                    {
+                        Longitude = documentSnapshot.GetValue<string>("Longitude"),
+                        Latitude = documentSnapshot.GetValue<string>("Latitude"),
+                        Name = documentSnapshot.GetValue<string>("Name"),
+                        Position = documentSnapshot.GetValue<int>("pos"),
+
+                        // Map more properties as needed
+                    };
+                    return View(Coordinates);
+                }
+ 
+               
+            }
             return View();
         }
 
