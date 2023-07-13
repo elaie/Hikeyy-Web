@@ -1,51 +1,110 @@
-﻿@{
+﻿﻿@{
     ViewData["Title"] = "Home Page";
 
 }
 <head>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-lDVq4FzNpeElgKGW-F4Im91M0dQc--w&callback=initMap"></script>
-</head>
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-<div class="text-center">
-    <h1 class="display-4">Welcome you have succesfully signed in</h1>
-    <div id="map" style="height: 400px;"></div>
-    <a asp-action="LogOut">Sign Out</a>
-</div>
-<script>
-    function initMap() {
-        // Initialize the map
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 27.700000, lng: 85.333200 },
-            zoom: 10
-        });
-
-        var markers = []; // Array to store the markers
-
-        function updateLocations() {
-            fetch('/Home/GetLocations')
-                .then(response => response.json())
-                .then(locations => {
-                    // Remove existing markers from the map
-                    markers.forEach(marker => marker.setMap(null));
-                    markers = [];
-
-                    // Add markers for each location
-                    locations.forEach(location => {
-                        var marker = new google.maps.Marker({
-                            position: { lat: location.latitude, lng: location.longitude },
-                            map: map
-                        });
-                        markers.push(marker);
-                    });
-                });
+    <style>
+        h5 {
+            display: grid;
+            place-items: center;
+            background: #8a9c7d;
+            padding: 0.4em;
+            border-radius: 10px;
+            box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15), -6px -6px 10px -1px rgba(255,255,255,0.7);
+            border: 1px solid rgba(0,0,0,0);
+            cursor: pointer;
+            transition: transform 0.5s;
+            width: 120px;
+            margin-top: 10px;
+            margin-left: 900px;
         }
 
-        // Update user locations initially and every 5 seconds
-        updateLocations();
-        setInterval(updateLocations, 5000);
-    }
-</script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-lDVq4FzNpeElgKGW-F4Im91M0dQc--w&callback=initMap"></script>
+            h5:hover {
+                box-shadow: inset 4px 4px 6px -1px rgba(0,0,0,0.2), inset -4px -4px 6px -1px rgba(255,255,255,0.7), -0.5px -0.5px 0px rgba(255,255,255,1), 0.5px 0.5px 0px rgba(0,0,0,0.15), 0px 12px 10px -10px rgba(0,0,0,0.05);
+                border: 1px solid rgba(0,0,0,0.1);
+                transform: translateY(0.5em);
+            }
+
+    </style>
+
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="display-4">Let's track hikers</h1>
+    </div>
+    <div class="text-center">
+        <div id="map" style="height: 800px;"></div>
+        <a asp-action="LogOut" style="  display: grid;
+            place-items: center;
+            background: #8a9c7d;
+            padding: 0.4em;
+            border-radius: 10px;
+            box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15), -6px -6px 10px -1px rgba(255,255,255,0.7);
+            border: 1px solid rgba(0,0,0,0);
+            cursor: pointer;
+            transition: transform 0.5s;
+            width:120px;
+            margin-top:10px;
+            margin-left:900px;color:#fff">
+            Sign Out
+        </a>
+    </div>
+    <script>
+        function initMap() {
+            // Initialize the map
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 27.700000, lng: 85.333200 },
+                zoom: 10
+            });
+
+            var markers = []; // Array to store the markers
+            var circles = []; // Array to store the circles
+
+            function updateLocations() {
+                fetch('/Home/GetLocations')
+                    .then(response => response.json())
+                    .then(locations => {
+                        // Remove existing markers and circles from the map
+                        markers.forEach(marker => marker.setMap(null));
+                        circles.forEach(circle => circle.setMap(null));
+                        markers = [];
+                        circles = [];
+
+                        // Add markers and circles for each location
+                        locations.forEach(location => {
+                            var marker = new google.maps.Marker({
+                                position: { lat: location.latitude, lng: location.longitude },
+                                map: map,
+                                icon: {
+                                    path: google.maps.SymbolPath.CIRCLE,
+                                    scale: 4, // Adjust the size of the dots here
+                                    fillColor: 'blue',
+                                    fillOpacity: 1,
+                                    strokeWeight: 0
+                                }
+                            });
+                            markers.push(marker);
+
+                            var circle = new google.maps.Circle({
+                                strokeWeight: 0,
+                                fillColor: '#4285F4', // Adjust the color of the ripple effect here
+                                fillOpacity: 0.35,
+                                map: map,
+                                center: { lat: location.latitude, lng: location.longitude },
+                                radius: 100, // Adjust the radius of the ripple effect here
+                                clickable: false,
+                                animation: google.maps.Animation.DROP
+                            });
+                            circles.push(circle);
+                        });
+                    });
+            }
+
+            // Update user locations initially and every 5 seconds
+            updateLocations();
+            setInterval(updateLocations, 5000);
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-lDVq4FzNpeElgKGW-F4Im91M0dQc--w&callback=initMap"></script>
+</body>

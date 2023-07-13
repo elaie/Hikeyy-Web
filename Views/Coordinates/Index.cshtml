@@ -2,12 +2,80 @@
 
 @{
     ViewData["Title"] = "Index";
-
 }
 
 <h1>Index</h1>
+<head>
+<style>
 
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2c9a5b;
+            color: #000;
+            /*border: 1px solid #AFAFAF*/
+        }
+
+        td {
+            border-bottom: 1px solid #ccc;
+            /*border: 1px solid #AFAFAF;*/
+        }
+
+        tr:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+
+        tr:hover {
+            background-color: #EDEEE3
+        }
+
+        .btn-editt,
+        .btn-detailss,
+        .btn-deletee {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #aabd9d;
+            color: #fff;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 5px;
+            width: 70px;
+        }
+
+            .btn-editt:hover,
+            .btn-detailss:hover,
+            .btn-deletee:hover {
+                background-color: #8a9c7d
+            }
+ .btn-secondary{
+        position: relative;
+        width: 150px;
+        height: 40px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border: 1px solid #aabd9a;
+        background-color: #abbd9a;
+        margin:10px 20px}
+</style>
+</head>
 <table class="table">
     <thead>
         <tr>
@@ -44,10 +112,10 @@
             <td>
                     @Html.ActionLink("Edit", "Edit", new { id=@ViewData["UID"],name=item.Name  }) |
                     @Html.ActionLink("Details", "Details", new { id=@ViewData["UID"],name=item.Name }) |
-                @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
             </td>
         </tr>
         }
-        <a href="@Url.Action("Create", "Coordinates",new { id=@ViewData["UID"] })" class="btn btn-secondary">Go to Another Page</a>
+        <a href="@Url.Action("Create", "Coordinates",new { id=@ViewData["UID"] })" class="btn btn-secondary">Edit Co-ordinates</a>
     </tbody>
 </table>

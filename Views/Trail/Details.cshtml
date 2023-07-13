@@ -3,12 +3,48 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    .row{
+        background-color: #EDEEE3;
+        border-radius: 20px;
+        box-sizing: border-box;
+        height: 100%;
+        padding: 20px;
+        width: 900px;            }
+    h1{
+        color: #8a9c7d
+    }
 
-<h1>Details</h1>
+    .col-sm-2{
+        color: #617158
+    }
 
+    .btn-edit
+     {
+        display: inline-block;
+        padding: 5px 20px;
+        background-color: #aabd9d;
+        color: #fff;
+        border: none;
+        text-decoration: none;
+        cursor: pointer;
+        border-radius: 4px;
+        margin: 5px;
+        font-size:20px;
+    }
+
+        .btn-edit:hover
+         {
+            background-color: #8a9c7d;
+            color:black;
+        }
+</style>
+<h1 >Details of the trail</h1>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <div>
-    <h4>TrailModel</h4>
-    <hr />
+    <hr style="width:900px;margin-left:-10px;"/>
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.UID)
@@ -61,6 +97,9 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.UID }) |
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.UID }, new { @class = "btn-edit" }) <ion-icon name="create-outline"></ion-icon> <br>
+  @*  @Html.ActionLink("Edit", "Edit", new { id=Model.UID }) |*@
+    <div style="margin:15px;">
+        <a asp-action="Index" style="color:#8a9c7d;"><ion-icon name="arrow-back-outline" style="margin-right:5px;"></ion-icon>Back to List</a>
+    </div>
 </div>
