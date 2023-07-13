@@ -1,4 +1,5 @@
 ﻿using Google.Cloud.Firestore;
+using Google.Type;
 using Hikeyy.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -156,7 +157,8 @@ namespace Hikeyy.Controllers
             string parentDocumentId = id;
             // Specify the new collection name
             string newCollectionName = "Cordinates";
-
+            TempData["Name"]  = Request.Query["name"];
+            TempData["id"] = Request.Query["id"];
             DocumentReference parentDocumentRef = _db.Collection(parentCollection).Document(parentDocumentId);
 
             CollectionReference newCollectionRef = parentDocumentRef.Collection(newCollectionName);
@@ -166,7 +168,7 @@ namespace Hikeyy.Controllers
 
             List<CoordinatesModel> products = new List<CoordinatesModel>();
             ViewData["UID"] = id;
-            System.Diagnostics.Debug.WriteLine(ViewData["UID"]+" "+name);
+            System.Diagnostics.Debug.WriteLine(ViewData["UID"]+" "+ TempData["Name"]);
             foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
             {
                 // Map Firestore document data to a Product model object
@@ -192,10 +194,36 @@ namespace Hikeyy.Controllers
         // POST: CoordinatesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(string id)
         {
+            string Name = TempData["Name"] as string;
+            string uid = TempData["id"] as string;
+            string parentCollection = "Trails";
+            string parentDocumentId = uid;
+           
+            System.Diagnostics.Debug.WriteLine($"EDIT POST CALLED: {Name}");
+            // Specify the new collection name
+            string newCollectionName = "Cordinates";
+            
             try
             {
+                var trailCollection = _db.Collection(parentCollection);
+
+                var trailDocument = trailCollection.Document(parentDocumentId);
+
+                // Access the child collection "coordinates"
+                var coordinatesCollection = trailDocument.Collection(newCollectionName);
+
+                // Update document data inside the "coordinates" collection
+                //var coordinateDocument = coordinatesCollection.Document(docUID);
+                //await coordinateDocument.UpdateAsync(new Dictionary<string, object>
+                //{
+                //    { "Longitude" , coordinates.Longitude },
+                //    { "Latitude" , coordinates.Longitude },
+                //    { "Name" , coordinates.Longitude },
+                //    { "Position" , coordinates.Longitude },
+
+                //});
                 return RedirectToAction(nameof(Index));
             }
             catch
