@@ -27,15 +27,17 @@ namespace Hikeyy.Controllers
             string parentDocumentId = id;
             // Specify the new collection name
             string newCollectionName = "Cordinates";
-
+            
             DocumentReference parentDocumentRef = _db.Collection(parentCollection).Document(parentDocumentId);
 
             CollectionReference newCollectionRef = parentDocumentRef.Collection(newCollectionName);
 
             QuerySnapshot snapshot = await newCollectionRef.GetSnapshotAsync();
 
+            
             List<CoordinatesModel> products = new List<CoordinatesModel>();
-
+            ViewData["UID"] = id;
+            System.Diagnostics.Debug.WriteLine(ViewData["UID"]);
             foreach (DocumentSnapshot documentSnapshot in snapshot.Documents)
             {
                 // Map Firestore document data to a Product model object
@@ -57,17 +59,30 @@ namespace Hikeyy.Controllers
         }
        
         // GET: CoordinatesController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(string id)
         {
-            return View();
+            System.Diagnostics.Debug.WriteLine("DETAILSSSSS+" + id);
+            string parentCollection = "Trails";
+            string parentDocumentId = id;
+            // Specify the new collection name
+            string newCollectionName = "Cordinates";
+
+            DocumentReference parentDocumentRef = _db.Collection(parentCollection).Document(parentDocumentId);
+
+            CollectionReference newCollectionRef = parentDocumentRef.Collection(newCollectionName);
+
+            QuerySnapshot snapshot = await newCollectionRef.GetSnapshotAsync();
+            
+            return View(snapshot);
         }
 
         // GET: CoordinatesController/Create
-        public ActionResult Create()
+        public ActionResult Create(string id)
         {
-            string myString = (string)TempData["TrailUID"];
-            System.Diagnostics.Debug.WriteLine($"Created {myString}");
-            ViewBag.MyString = myString;
+            
+            System.Diagnostics.Debug.WriteLine($"Created {id}");
+            ViewData["UID"] = id;
+            //ViewBag.MyString = myString;
             //System.Diagnostics.Debug.WriteLine("INSIDE CREATE" + id);
             return View();
         }
